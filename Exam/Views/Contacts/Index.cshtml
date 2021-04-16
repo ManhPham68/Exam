@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Exam.Models.Contact>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div style="padding:10px">
+    <h2>Contacts</h2>
+
+    <p>
+        <button><a href="@Url.Action("Create","Contacts")" class="btn btn-default"><i class="fa fa-plus"></i>Add New Contatcs</a></button>
+    </p>
+    <p>
+        <button><a href="@Url.Action("OrderByName","Contacts")" class="btn btn-default">Sort By Name</a></button>
+    </p>
+    <div style="position:absolute;top:10px;right:20px">
+        @using (Html.BeginForm("Search", "Contacts", FormMethod.Post)) // -- phần thay đổi
+        {
+            <p>
+                Search By Name: @Html.TextBox("search") <input type="submit" value="Tìm kiếm" />
+            </p>
+        }
+    </div>
+    <table class="table table-striped">
+        <thead class="table-condensed">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ContactName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ContactNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GroupName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Hiredate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Birthday)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContactName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContactNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GroupName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hiredate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Birthday)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ContactName }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ContactName }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ContactName })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
